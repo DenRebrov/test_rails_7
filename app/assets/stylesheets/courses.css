@@ -1,0 +1,254 @@
+.course-visible {
+  opacity: 1.0;
+}
+
+.course-invisible {
+  opacity: 0.7;
+}
+
+.course-wrapper {
+  float: left;
+  width: 33.33333%;
+}
+
+.course-background-circle {
+  background: white;
+  border-radius: 50%;
+}
+
+.course-card {
+  position: relative;
+  border-radius: 20px;
+  background-color: whitesmoke;
+  color: var(--color-primary);
+
+/*  background-color: #777;
+  color: white;*/
+
+  height: 500px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.course-card-img {
+  width: 100%;
+  height: 180px;
+  border-radius: 20px 20px 0 0;
+}
+
+.course-card-content {
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.course-card-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 7px;
+}
+
+.course-card-price {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border-radius: 50%;
+  padding: 15px;
+  background: var(--color-primary);
+  color: white;
+  font-family: 'Seymour One', sans-serif;
+  font-size: 1.5em;
+}
+
+.course-card-footer {
+  position: absolute;
+  color: grey;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+
+
+
+/*=====================================*/
+
+.title-course-wrapper {
+  position: relative;
+}
+
+.title-course-show {
+  position: absolute;
+  text-align: left;
+  display: inline-block;
+  color: white;
+  font-size: 90px;
+  z-index: 1;
+}
+
+.course-title-image {
+  display: block;
+  width: 100%;
+  height: 25vh;
+  filter: brightness(60%);
+  z-index:0;
+}
+
+
+
+
+
+
+
+.course-show-video {
+  width: 100%;
+  height: 360px;
+  /*border-radius: 25px;*/
+  background: #111;
+  position: relative;
+  box-shadow: 0 0 6px rgba(0,0,0,.46),0 6px 12px rgba(0,0,0,.62);
+}
+
+
+
+.course-info-background {
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+  background: white;
+  border-radius: 50% / 10%;
+  color: steelblue;
+  text-align: center;
+  text-indent: .1em;
+}
+.course-info-background:before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: -5%;
+  left: -5%;
+  background: inherit;
+  border-radius: 5% / 50%;
+}
+
+
+
+
+
+
+.course-plan-section {
+  background: var(--color-primary);
+  height: 760px;
+}
+
+.course-plan-wrapper {
+  width: 100%;
+  /*margin: auto;*/
+  /*margin-left: 20%;*/
+  position: relative;
+}
+
+.mapper-course-plan {
+  width: 1000px;
+  height: 500px;
+  border-radius: 35px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  margin-bottom: 50px;
+  box-shadow: 0 0 6px rgba(0,0,0,.16),0 6px 12px rgba(0,0,0,.32);
+}
+
+.topic-plan-buttons-column {
+  position: absolute;
+  top: 0; 
+  /*left: 0;*/
+  overflow: auto;
+  height: 500px;
+  width: 300px;
+  margin-left: 50px;
+  /*padding-left: 20px;*/
+}
+
+.topic-circle-progressbar-column {
+  position: absolute; 
+  top: 0; 
+  right: 0;
+  margin-right: 50px;
+}
+
+
+
+
+.course-show-topic-plan-button {
+  background: whitesmoke;
+  padding: 10px;
+  margin: 2px;
+  border-radius: 5px;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  text-align: center;
+  opacity: 0.8;
+}
+
+.course-show-topic-plan-button-ok {
+  background: var(--color-secondary);
+  padding: 10px;
+  margin: 2px;
+  border-radius: 5px;
+  border: 1px solid var(--color-secondary);
+  color: white;
+  text-align: center;
+  opacity: 1;
+}
+
+.course-show-topic-plan-button:hover {
+  color: white;
+  background: var(--color-tertiary);
+  opacity: 1;
+}
+
+.course-show-topic-plan-btn-footer {
+  padding-top: 2px;
+}
+
+.course-show-topic-plan-btn-title {
+  font-family: 'Seymour One', sans-serif;
+  font-weight: bold;
+  font-size: 21px;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+.course-show-topic-plan-status-container {
+  border-top: 1px solid silver;
+  width: 100%; 
+  margin-top: 5px; 
+  height: 30px;
+}
+
+.course-show-topic-plan-status-container:hover {
+  /*border-top: 1px solid white;*/
+  width: 100%;
+  margin-top: 5px;
+  height: 30px;
+}
+
+
+
+
+
+
+
+

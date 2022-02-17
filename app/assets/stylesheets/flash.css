@@ -1,0 +1,18 @@
+.flash {
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px 5px 5px 5px;
+  display: inline-block;
+  color: white;
+  text-align: center;
+
+  z-index: 1;
+}
+
+.flash.notice {
+  background-color: blue;
+}
+
+.flash.alert {
+  background-color: indianred;
+}

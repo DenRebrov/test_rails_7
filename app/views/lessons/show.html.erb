@@ -1,0 +1,174 @@
+<!-- Map Hilight script plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/maphilight/1.4.0/jquery.maphilight.min.js"></script>
+
+<% progress_prcnt = current_user.get_course_progress(@lesson.topic.course) %>
+
+<div class="lesson-background-video">
+  <div class="container">
+    <iframe src="<%= @lesson.video %>" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" class="lesson-video">
+      Ваш браузер не поддерживает плавающие фреймы!
+    </iframe>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <div class="container"><%= render_breadcrumbs separator: " / " %></div>
+</ol>
+
+<div class="container">
+  <div class="text-center">
+    <h1 class="h1-sub-title"><%= @lesson.title %></h1>
+  </div>
+
+  <div style="margin-bottom: 140px;">
+    <% if @lesson.previous_lesson %>
+      <%= link_to lesson_path(@lesson.previous_lesson), class: "lesson-btn-left" do %>
+        <span class="lesson-btn-icon-left"><%= fa_icon 'hand-o-left' %></span>
+        <span class="pull-right"><%= @lesson.previous_lesson.title.truncate(25) %></span>
+      <% end %>
+    <% else %>
+      <%= link_to topic_path(@lesson.topic), class: "lesson-btn-left" do %>
+        <span class="lesson-btn-icon-left"><%= fa_icon 'hand-o-left' %></span>
+        <span class="pull-right"><%= @lesson.topic.title %></span>
+      <% end %>
+    <% end %>
+
+    <%= link_to test_path(@lesson.test), class: "btn lesson-btn-right" do %>
+      <span class="lesson-btn-icon-right"><%= fa_icon 'hand-o-right' %></span>
+      <span class="pull-left"><%= @lesson.title.truncate(25) %>: Test</span>
+    <% end %>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+
+<div class="container mb-50">
+  <div class="progress-course-topic-lesson progress-striped-course-topic-lesson">
+    <div class="progress-bar-course-topic-lesson" style="width: <%= progress_prcnt %>%; background: <%= hlpr_progress_value_changer(@lesson.topic.course) %>">
+      <div class="pull-right">
+        <span class="progress-course-topic-lesson-value" style="background: <%= hlpr_progress_value_changer(@lesson.topic.course) %>"><%= progress_prcnt %>%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO -->
+
+<div class="container">
+  <div class="course-info-background mb-50">
+    <div class="row">
+      <div class="col-lg-3">
+        <span><%= image_tag hlpr_topic_img(@lesson.topic), style: "width: 100%; border-radius: 15px; position: relative;" %></span>
+        <a href="#openModal" class="link-open-modal">Look at the plan</a>
+      </div>
+      <div class="col-lg-8">
+        <span class="ml-10 h3" style="position: relative;"><%= @lesson.body %></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL VINDOW WITH PLAN OF MUSEM -->
+
+  <div id="openModal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" style="color: whitesmoke;"><%= link_to @lesson.topic.title, topic_path(@lesson.topic), style: 'color: white;' %> (<%= progress_prcnt %> %) - Plan</h1>
+          <a href="#close" title="Close" class="close">×</a>
+        </div>
+        <div class="modal-body">    
+
+          <div class="course-plan-wrapper">
+            <%= image_tag hlpr_topic_img(@lesson.topic), alt: "plan", usemap: "#plan", class: "mapper2", id: "img_mapper" %>
+
+            <map name="plan">
+              <area                
+              shape="<%= @lesson.shape %>" 
+              coords="<%= @lesson.coords %>" 
+              href="<%= lesson_path(@lesson) %>" 
+              alt="IMAGE" 
+              data-maphilight='{ "alwaysOn": "true", "strokeColor": "95B871", "strokeWidth": 4, "fillColor": "95B871", "fillOpacity": 0.7 }' 
+              id="area_<%= @lesson.id %>">
+
+              <% @lesson_topic_lessons.each do |lesson| %>
+                <area 
+                onmouseover="hoverShowRoomTitle('<%= lesson.id %>', '<%= lesson.title %>')"
+                onmouseout="beforeHideRoomTitle('<%= lesson.id %>')" 
+                shape="<%= lesson.shape %>" 
+                coords="<%= lesson.coords %>" 
+                href="<%= lesson_path(lesson)%>" 
+                alt="IMAGE" 
+                data-maphilight='{ "strokeColor": "95B871", "strokeWidth": 4, "fillColor": "95B871", "fillOpacity": 0.6 }'
+                id="area_lesson_<%= lesson.id %>">
+              <% end %>
+            </map>
+
+            <div class="topic-plan-buttons-column" id="topic_buttons2">
+              <%= render partial: 'topics/topic', collection: @topics.preload(:course, :test) %>
+            </div>
+
+            <div class="lesson-plan-buttons-column" id="lesson_buttons">
+              <%= render partial: 'lessons/lesson', collection: @lesson_topic_lessons.preload(:test) %>
+            </div>
+          </div>
+
+          <h2 class="modal-title-bottom"><%= @lesson.title %></h2>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY -->
+
+<div class="lesson-photo-gallery-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h1 style="color: white;" class="">Photo gallery</h1>
+      </div>
+      <div class="col-lg-6">
+        <span class="pull-right text-center" style="margin-top: 60px;"><%= link_to 'See photos from this hall
+', photos_lesson_path(@lesson), class: 'btn-go-course ', style: 'width: 550px;' %></span>
+      </div>
+    </div>
+
+    <div class="grid-wrapper">
+      <% if @lesson.photos.present? %>
+        <div class="big">
+          <%= image_tag(hlpr_photo_url(@lesson.photo_number(1)), class: 'photo-gallery-img', alt: "Gallery image 3") %>
+          <h2 class="text-on-photo-gallery"><%#= @lesson.photo_number(1).title.truncate(15) %></h2>
+        </div>
+        <div class="tall">
+          <%= image_tag(hlpr_photo_url(@lesson.photo_number(2)), class: 'photo-gallery-img', alt: "Gallery image 3") %>
+          <h2 class="text-on-photo-gallery"><%#= @lesson.photo_number(2).title.truncate(15) %></h2>
+        </div>
+        <div>
+          <%= image_tag(hlpr_photo_url(@lesson.photo_number(3)), class: 'photo-gallery-img', alt: "Gallery image 3") %>
+          <h2 class="text-on-photo-gallery"><%#= @lesson.photo_number(3).title.truncate(15) %></h2>
+        </div>
+        <div>
+          <%= image_tag(hlpr_photo_url(@lesson.photo_number(4)), class: 'photo-gallery-img', alt: "Gallery image 3") %>
+          <h2 class="text-on-photo-gallery"><%#= @lesson.photo_number(4).title.truncate(15) %></h2>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- ////////////// -->
+<!-- SCRIPT SECTION -->
+<!-- ////////////// -->
+
+<!-- MAP HILIGHTER CALL SCRIPT -->
+<script type="text/javascript">
+  $(function() {
+    $('.mapper2').maphilight();
+
+    let buttonTopic = document.getElementById("topic_button_" + <%= @lesson.topic.id %>);
+    buttonTopic.style = "background: #A4527C; color: white; opacity: 1;";
+  });
+</script>
+

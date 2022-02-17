@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cultazavr</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <!-- Google map -->
+    <script src="//maps.google.com/maps/api/js?key=<%= Rails.application.credentials[Rails.env.to_sym][:google][:map] %>"></script>
+    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+    <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.2/underscore-umd-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps4rails/2.1.2/gmaps4rails.min.js"></script>
+
+    <!-- Maphiligher -->
+    <script async src="https://unpkg.com/jquery@3.1.1"></script>
+    <script async src="http://davidlynch.org/projects/maphilight/jquery.maphilight.min.js"></script>
+
+    <%# if browser.device.mobile? %>
+      <%#= render 'shared/navbar_mobile' %>
+    <%# else %>
+      <div class="topnav">
+        <%= link_to root_path do %>
+          <span>ON_SCHOOL</span>
+        <% end %>
+        <%= link_to root_path do %>
+          <span><%= fa_icon 'home', style: 'margin-right: 5px;' %>Musems</span>
+        <% end %>
+        <%= link_to root_path do %>
+          <span>Contact</span>
+        <% end %>
+        <%= link_to root_path do %>
+          <span>About</span>
+        <% end %>
+        <%= link_to root_path do %>
+          <span>Language</span>
+        <% end %>
+        <% if user_signed_in? %>
+          <%= link_to destroy_user_session_path do %>
+            <span class="btn-nav btn-logout" style="float: right;">Logout</span>
+
+          <% end %>
+          <%= link_to root_path do %>
+            <span class="btn-nav btn-user-profile" style="float: right;"><%= current_user.email.truncate(20) %></span>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_registration_path do %>
+            <span class="btn-nav btn-signup" style="float: right;">Register</span>
+          <% end %>
+          <%= link_to new_user_session_path do %>
+            <span class="btn-nav btn-login" style="float: right;">Login</span>
+          <% end %>              
+        <% end %>
+      </div>
+    <%# end %>
+
+
+    <meta
+      name="description"
+      content="Mary's simple recipe for maple bacon donuts
+               makes a sticky, sweet treat with just a hint
+               of salt that you'll keep coming back for.">
+
+
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

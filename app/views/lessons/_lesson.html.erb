@@ -1,0 +1,13 @@
+<% lesson_id = params[:controller] == 'lessons' ? params[:id].to_i : nil %>
+
+<%= link_to lesson_path(lesson), style: "text-decoration: none;" do %>
+  <div class="<%= hlpr_lesson_color_changer(lesson_id, lesson.id) %>" id="lesson_button_<%= lesson.id %>"
+  	onmouseout="beforeHideLessonTitle('<%= lesson.id %>')"
+  	onmouseover="hoverShowLessonTitle('<%= lesson.id %>')">
+	<span class="label label-danger label-round" style="margin-left: 10px;"><%= lesson.number %></span>
+	<span><%= lesson.title.truncate(24) %></span>
+	<% if current_user.test_completed_for?(lesson) %>
+	  <span class="pull-right" style="font-size: 2.5em; padding-right: 5px;"><%= fa_icon 'check' %></span>
+	<% end %>
+  </div>
+<% end %>

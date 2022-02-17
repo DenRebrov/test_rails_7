@@ -1,0 +1,101 @@
+#map {
+  margin-top: 50px;
+  height: 40vh;
+  border-top: 5px solid white;
+}
+
+.marker_container {
+  font-family: 'Neucha', cursive;
+  font-size: 18px;
+  padding: 10px;
+  font-weight: bold;
+  background: var(--color-secondary);
+  color: white;
+}
+
+.mapper2 {
+  width: 1000px;
+  height: 500px;
+  border-radius: 25px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /*margin-bottom: 20px;*/
+}
+
+
+
+
+
+
+
+
+@media all and (min-width: 1200px) and (max-width: 1599px) {
+
+  .mapper {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .mapper2 {
+    width: 100%;
+  }
+
+
+}
+
+
+
+/*====================================*/
+/* TABLET */
+/*====================================*/
+
+@media all and (min-width: 1000px) and (max-width: 1199px) {
+
+  .mapper {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .mapper2 {
+    width: 100%;
+  }
+
+}
+
+
+
+
+
+@media all and (max-width: 999px) {
+
+  #map {
+    height: 80vh;
+  }
+
+  .mapper {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .mapper2 {
+    width: 100%;
+  }
+
+
+  .google-map-bottom {
+    padding: none; 
+    box-shadow: none;
+  }
+
+  .marker_container { 
+    font-size: 12px;
+  }
+
+
+}
+
+
+
+
+

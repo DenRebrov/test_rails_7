@@ -1,0 +1,133 @@
+.text-on-photo-gallery {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  color: white;
+  /*background: var(--color-secondary);*/
+  /*padding: 5px;*/
+  /*width: 100%;*/
+  font-family: 'Neucha', cursive;
+}
+
+
+.photo-gallery-img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  display: inline-block;
+  border: 3px solid white;
+
+  /*display: block;*/
+}
+
+/* Main CSS */
+.grid-wrapper > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.grid-wrapper > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 120px;
+  grid-auto-flow: dense;
+}
+.grid-wrapper .wide {
+  grid-column: span 2;
+}
+.grid-wrapper .tall {
+  grid-row: span 2;
+}
+.grid-wrapper .big {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+
+
+
+
+
+
+
+
+/*@media all and (max-width: 800px) {
+
+
+  .img-lightbox-border {
+    width: 150px;
+    height: 120px;
+  }
+
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------
+// Set-up styles
+// --------------------------
+
+ul { list-style: none; margin: 0; padding: 0;}
+figure { margin: 0; }
+figcaption { font-family: 'Neucha', cursive; color: grey; font-size: 2em; text-align: center;}
+
+// --------------------------
+// Grid styles
+// --------------------------
+.grid {
+  display: grid;
+  grid-auto-flow: column; // display the items in columns only, ie horizontal
+  grid-auto-columns: 90%; // create as many columns as there are items. 90% so we can see next item on the right.
+  grid-gap: 0.5em;
+  /*overflow-x: scroll; // scroll only within the grid, not entire page*/
+  -webkit-overflow-scrolling: touch; // better scrolling on touch
+  padding: 3.5em 1em;
+  background: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
+  @media all and (min-width: 600px) {
+    grid-auto-flow: initial; // default: display items in rows and cols
+    grid-template-columns: repeat(auto-fit, minmax(auto, 30em)); // as many columns with max-width of 20em;
+    justify-content: center; // center the items - this is optional
+  }
+  
+  &__figure {
+    display: grid;
+    grid-template-rows: 20em 1fr; // 15em high row for image – value could be whatever
+    grid-gap: 1em;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // crop image within its cell
+    }
+  }
+}
+
+.photo-img {
+  border-radius: 10px;
+}

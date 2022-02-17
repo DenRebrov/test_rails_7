@@ -1,0 +1,205 @@
+
+<% course_title = @course.title %>
+<%# cache @course do %>
+
+  <div class="title-course-wrapper">
+    <div class="container"><h1 class="title-course-show"><%= course_title %></h1></div>
+    <span><%= image_tag hlpr_course_img(@course), alt: 'course-title-image', class: 'course-title-image' %></span>
+  </div>
+
+  <ol class="breadcrumb">
+    <div class="container"><%= render_breadcrumbs separator: " / " %></div>
+  </ol>
+
+  <div class="container">
+    <!-- START COURSE BUTTON / BUY BUTTON -->
+    <div class="text-center mt-10">
+      <% unless user_signed_in? && current_user.course_purchased?(@course) %>
+        <%= link_to 'Teach me', own_course_path(@course), data: { turbo_method: :post }, class: 'btn-teach-course text-center' %>
+      <% else %>
+        <%= link_to 'Start course', topic_path(@course.first_topic), class: 'btn-go-course mt-10', style: 'width: 50%;' %>
+      <% end %>
+    </div>
+
+    <!-- COURSE INFO BOX -->
+    <h1><%= course_title %> - Info</h1>
+    <div class="course-info-background mb-50">
+
+      <!-- COURSE VIDEO -->
+      <div class="row mt-10">
+        <div class="col-lg-7">
+          <iframe 
+            class="course-show-video" 
+            src="<%= @course.video %>"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture">Ваш браузер не поддерживает плавающие фреймы!
+          </iframe>
+        </div>
+
+        <div class="col-lg-4 ml-50">
+          <span class="ml-50 h3" style="position: relative;"><%= @course.body %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE MUSEM'S MAP WITH TOPIC BUTTONS GROUP & CIRCLE PROGRESS BAR (LEFT - CENTER - RIGHT COLUMN) -->
+  <%# cache @topics do %>
+    <div class="course-plan-section">
+      <div class="container row"><h1 style="color: white;"><%= course_title %> - Plan</h1></div>
+
+      <div class="row">
+        
+        <!-- INTERACTIVE MUSEM'S MAP (COURSE MAP) -->
+        <div class="course-plan-wrapper " data-controller="hello">
+          <div class="text-center" style="margin-left: calc((100% - 1000px)/2);">
+            <%= image_tag hlpr_course_img(@course), alt: "plan", usemap: "#plan", class: "mapper-course-plan" %>
+          </div>
+          
+          <map name="plan">
+            <% @topics.each do |topic| %>
+              <div>
+                <div data-hello-target="topic"><%= topic.id %>"></div>
+                <area 
+                data-action="mouseover->hello#greet mouseout->hello#by"
+
+                
+
+                data-maphilight='{"strokeColor": "ffffff", "strokeWidth": 10, "fillColor": "A9A9A9", "fillOpacity": 0.6}'
+                shape="<%= topic.shape %>"
+                coords="<%= topic.coords %>"
+                href="<%= topic_path(topic) %>"
+                alt="IMAGE"
+                id="<%= topic.id %>">
+              </div>
+            <% end %>
+          </map>
+
+          <!-- TOPIC BUTTONS GROUP (LEFT COLUMN) -->
+          <div class="topic-plan-buttons-column" id="topic_buttons">
+            <%#= render partial: 'topics/topic', collection: @topics %>
+
+            <% @topics.each do |topic| %>
+              <% if user_signed_in? %>
+                <% topic_status = hlpr_topic_status(topic) %>
+                <% topic_id = params[:controller] == 'topics' ? params[:id].to_i : nil %>
+              <% end %>
+
+              <%= link_to topic_path(topic), style: "text-decoration: none;" do %>
+                <div class="<%= hlpr_topic_color_changer(topic_id, topic.id) %>" id="topic_button_<%= topic.id %>">
+
+                  <div class="course-show-topic-plan-btn-title"><%= topic.title %></div>
+                  <hr style="border-top: 1px solid lightgrey;">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <span class="topic-button-status">Status:</span>
+                    </div>
+                    <div class="col-lg-6">
+                      <% if user_signed_in? %>
+                        <span class="label label-<%= topic_status[0] %> %> topic-button-status-value"><%= topic_status[1] %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+
+          </div>
+
+          <!-- CIRCLE PROGRESS BAR (RIGHT COLUMN) -->
+
+          <div class="topic-circle-progressbar-column">
+            <div class="text-center">
+              <% if user_signed_in? %>
+                <div class="c100 p<%= current_user.get_course_progress(@course) %> big center">
+                  <span><%= current_user.get_course_progress(@course) %>%</span>
+                  <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="text-center">
+
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+  <%# end %>
+
+  <!-- CURICCULUM & FEATURES BLOCK -->
+
+  <div class="container" style="">
+    <div class="row mt-10" >
+      <h1><%= course_title %> - Curicculum</h1>
+
+      <nav class="accordion" >
+        <% @topics.each do |topic| %>
+          <% topic_status = hlpr_topic_status(topic) %>
+
+          <input type="radio" name="accordion" id="cb_<%= topic.id %>" />
+          <section class="box">
+            <label class="box-title" for="cb_<%= topic.id %>">
+              <span><%= topic.title %></span>
+
+              <% if user_signed_in? %>
+                <span class="label label-<%= topic_status[0] %> pull-right topic-curicculum-status-value"><%= topic_status[1] %></span>
+              <% end %>
+
+              <div class="box-title-body"><%= topic.body.truncate(400) %></div>
+            </label>
+
+            <label class="box-close" for="acc-close"></label>
+
+            <% topic.lessons.order(number: :asc).each do |lesson| %>
+              <div class="box-content">
+                <span class="label label-danger label-round"><%= lesson.number %></span>
+                <span class="ml-10 h3"><%= link_to lesson.title.truncate(30), lesson_path(lesson), style: 'color: white; ' %></span>
+
+                <% if user_signed_in? && topic_status[1] != 'Locked' %>
+                  <% if topic_status[1] == 'Completed' %>
+                    <span class="pull-right" style="margin-right: 40px; margin-top: 10px;"><%= fa_icon 'check', style: 'font-size: 2.5em;' %></span>
+                  <% else %>
+   
+                  <% end %>
+                <% end %>
+                <%# if user_signed_in? %>
+                  <%#= link_to 'Go to room', lesson_path(lesson), class: 'label label-danger pull-right', style: 'margin: 10px; line-height: 42px; text-decoration: none; margin-right: 40px;' %>
+                <%# end %>
+
+                <span class="pull-right" style="color: #ddd; margin-right: 40px;"><%= lesson.body.truncate(100) %></span>
+              </div>
+            <% end %>
+          </section>
+        <% end %>
+
+        <input type="radio" name="accordion" id="acc-close" />
+      </nav>
+
+    </div>
+    <div style="background: whitesmoke; height: 50px;"></div>
+  </div>
+
+<!--   <div style="background: white; ">
+    <div class="container"><h1><%#= course_title %> - Centuries</h1></div>
+    <%#= render 'century' %>
+  </div> -->
+
+
+<%# end %>
+
+<!-- ////////////// -->
+<!-- SCRIPT SECTION -->
+<!-- ////////////// -->
+
+
+<!-- MAP HILIGHTER CALL SCRIPT -->
+<script type="text/javascript">
+  $(function() {
+    $('.mapper-course-plan').maphilight();
+  });
+</script>

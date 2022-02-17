@@ -1,0 +1,127 @@
+<% progress_prcnt = helper_test_passage_progress(@test_passage) %>
+<% help_fifty_fifty_used = @test_passage.help_fifty_fifty_used? %>
+<% help_google_hint_used = @test_passage.help_google_hint_used? %>
+<% help_overtime_used = @test_passage.help_overtime_used? %>
+<% help_error_protection_used = @test_passage.help_error_protection_used? %>
+
+<h1 class="h1-sub-title text-center" style="color: grey;"><%= @test_passage.test.testable.title + ': Test' %></h1>
+
+<div class="container test-passage-background-window mb-50">
+  <div class="row">
+  	<div class="col-lg-9">
+      <div class="row">
+
+        <div class="progress-course-card progress-striped-course-card" style="width: 100%;">
+          <div class="progress-bar-course-card" style="width: <%= progress_prcnt %>%; background: var(--color-secondary);">
+          </div>
+        </div>
+
+        <h2>
+          <span class="pull-left" style="font-family: 'Neucha', cursive;"><%= "Question #{@test_passage.question_number} of #{@test_passage.total_questions}"%></span>
+        </h2>
+      </div>
+
+      <hr class="test-task-string-hr">
+
+      <h2>
+        <span class="pull-left mb-10" style="color: var(--color-primary);"><%= @test_passage.current_question.body %></span>
+      </h2>
+
+  	</div>
+
+    <div class="col-lg-3">
+      <span class="pull-right test-passage-background-time-window">
+
+        <div data-controller="timer">
+          <%= content_tag :span, '', id: 'timer', data: { start_time: @test_passage.question_start_time, passage_time: TestPassage::TIME_TO_ANSWER } %>
+        </div>
+
+      </span>
+    </div>
+  </div>
+
+  <hr class="test-task-string-hr" style=" margin-bottom: 25px;">
+
+  <div class="test-question-body">
+    <%= form_with url: test_passage_path(@test_passage), local: true, method: :put do |form| %>
+      <%= form.collection_check_boxes :answer_ids, @test_passage.answers_or_semi_answers, :id, :body, include_hidden: false do |b| %>
+
+        <article class="feature1">
+          <%= b.check_box id: "answer_ids_#{b.object.id}", class: 'input', id: "feature1", type: "checkbox" %>
+
+          <div>
+            <span><%= b.label id: "answer_text_ids_#{b.object.id}" %></span>
+          </div>
+        </article>
+      <% end %>
+
+      <%= form.submit 'Next', class: "test-passage-next-btn", data: { turbo: false } %>
+
+      <hr class="test-task-string-hr">
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3 text-center">
+      <h2><span style="color: <%= hlpr_help_title_color_changer(help_fifty_fifty_used) %>">50/50</span></h2>
+
+      <div class="test-passage-help-box-section">
+        <% unless help_fifty_fifty_used %>
+          <%= button_to help_test_passage_path(@test_passage, help_type: :fifty_fifty), method: :put, class: 'test-passage-help-box' do %>
+            <span><%= fa_icon 'th-large', style: 'min-width: 100px;' %></span>
+          <% end %>
+        <% else %>
+          <span class='test-passage-help-box-used'><%= fa_icon 'ban', style: 'min-width: 100px;' %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3 text-center">
+      <h2><span style="color: <%= hlpr_help_title_color_changer(help_google_hint_used) %>">Hint</span></h2>
+
+      <div class="test-passage-help-box-section">
+        <% if !help_google_hint_used %>
+          <%= button_to help_test_passage_path(@test_passage, help_type: :google_hint), method: :put, class: 'test-passage-help-box' do %>
+            <span><%= fa_icon 'question-circle', style: 'min-width: 100px;' %></span>
+          <% end %>
+        <% elsif help_google_hint_used && @test_passage.current_question.google_hint_in_help_hash? %>
+          <span class='test-passage-help-box-activated'><%= fa_icon 'check', style: 'min-width: 100px;' %></span>
+        <% else %>
+          <span class='test-passage-help-box-used'><%= fa_icon 'ban', style: 'min-width: 100px;' %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3 text-center">
+      <h2><span style="color: <%= hlpr_help_title_color_changer(help_overtime_used) %>">Overtime</span></h2>
+
+      <div class="test-passage-help-box-section">
+        <% if !help_overtime_used %>
+          <%= button_to help_test_passage_path(@test_passage, help_type: :overtime), method: :put, class: 'test-passage-help-box' do %>
+            <span><%= fa_icon 'clock-o', style: 'min-width: 100px;' %></span>
+          <% end %>
+        <% elsif @test_passage.current_question.overtime_in_help_hash? %>
+          <span class='test-passage-help-box-activated'><%= fa_icon 'check', style: 'min-width: 100px;' %></span>
+        <% else %>
+          <span class='test-passage-help-box-used'><%= fa_icon 'ban', style: 'min-width: 100px;' %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3 text-center">
+      <h2><span style="color: <%= hlpr_help_title_color_changer(help_error_protection_used) %>">Try x2</span></h2>
+
+      <div class="test-passage-help-box-section">
+        <% if !help_error_protection_used %>
+          <%= button_to help_test_passage_path(@test_passage, help_type: :error_protection), method: :put, class: 'test-passage-help-box' do %>
+            <span><%= fa_icon 'heart', style: 'min-width: 100px;' %></span>
+          <% end %>
+        <% elsif @test_passage.current_question.help_hash[:error_protection] >= 1 %>
+          <span class='test-passage-help-box-activated'><%= fa_icon 'check', style: 'min-width: 100px;' %></span>
+        <% else %>
+          <span class='test-passage-help-box-used'><%= fa_icon 'ban', style: 'min-width: 100px;' %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

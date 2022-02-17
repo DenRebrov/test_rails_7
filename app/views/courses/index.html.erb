@@ -1,0 +1,73 @@
+<div class="title-course-wrapper">
+  <div class="container">
+    <h1 class="title-course-show"><span>Musems</span></h1>
+  </div>
+  <span><%= image_tag hlpr_course_img(@courses.first), alt: 'course-title-image', class: 'course-title-image' %></span>
+</div>
+
+<ol class="breadcrumb">
+  <div class="container"><%= render_breadcrumbs separator: " / " %></div>
+</ol>
+
+
+<!-- <div data-controller="hello">
+  <input data-hello-target="name" type="text">
+  <button data-action="click->hello#greet">Greet</button>
+</div> -->
+
+
+<!-- COURSES -->
+<div class="container course-background-circle">
+  <h1>Select musem</h1>
+
+  <div class="tabs" id="tabs">
+
+      <div data-action="click->hello#greet" class="tab tab-title-1">
+        <label id="tab-1-label" for="tab-1">
+          Palaces
+          <span class="label label-danger pull-right"><%= hlpr_label_category_count(@courses_palace_count) %></span>
+        </label>
+        <input id="tab-1" name="tabs-two" type="radio" checked="checked" >
+
+
+        <div><%= render partial: 'course', collection: @courses.palace_category, cached: true %></div>
+      </div>
+
+
+    <div class="tab tab-title-2">
+      <label id="tab-2-label" for="tab-2">
+        Military
+        <div class="label label-danger pull-right"><%= hlpr_label_category_count(@courses_military_count) %></div>
+      </label>
+      <input data-action="click->hello#greet" id="tab-2" name="tabs-two" type="radio" >
+
+      <div><%= render partial: 'course', collection: @courses.military_category, cached: true %></div>
+    </div>
+
+    <div class="tab tab-title-3">
+      <label id="tab-3-label" for="tab-3">
+        Other
+        <div class="label label-danger pull-right"><%= hlpr_label_category_count(@courses_other_count) %></div>
+      </label>
+      <input id="tab-3" name="tabs-two" type="radio" >
+
+      <div><%= render partial: 'course', collection: @courses.other_category, cached: true %></div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center mb-10 mt-50"><%== pagy_nav(@pagy) %></div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<script type="text/javascript">
+  // buildMap(<%#=raw @hash.to_json %>);
+
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+</script>

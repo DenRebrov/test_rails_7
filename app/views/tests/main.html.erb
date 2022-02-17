@@ -1,0 +1,35 @@
+<% progress_prcnt = current_user.get_course_progress(@test.testable) %>
+<% prgrss_value_changer = hlpr_progress_value_changer(@test.testable) %>
+
+<%= render 'test' %>
+
+<ol class="breadcrumb">
+  <div class="container"><%= render_breadcrumbs separator: " / " %></div>
+</ol>
+
+<div class="container">
+  <div class="text-center">
+    <h1 class="h1-sub-title"><%= @test.testable.title %>: Main test</h1>
+  </div>
+
+  <div style="margin-bottom: 140px;">
+    <% if @test.testable %>
+      <%= link_to semi_test_path(@test.testable.last_topic.test), class: "lesson-btn-left" do %>
+        <span class="lesson-btn-icon-left"><%= fa_icon 'hand-o-left' %></span>
+        <span class="pull-right"><%= @test.testable.last_topic.title.truncate(15) %>: Semi test</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+
+<div class="container mb-50">
+  <div class="progress-course-topic-lesson progress-striped-course-topic-lesson">
+    <div class="progress-bar-course-topic-lesson" style="width: <%= progress_prcnt %>%; background: <%= prgrss_value_changer %>">
+      <div class="pull-right">
+        <span class="progress-course-topic-lesson-value" style="background: <%= prgrss_value_changer %>"><%= progress_prcnt %>%</span>
+      </div>
+    </div>
+  </div>
+</div>

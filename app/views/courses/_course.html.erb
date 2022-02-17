@@ -1,0 +1,47 @@
+<% if course.visible? || user_signed_in? && current_user.admin? %>
+  <% if user_signed_in? %>
+    <% progress_prcnt = current_user.get_course_progress(course) %>
+    <% label_changer = hlpr_course_status(progress_prcnt) %>
+  <% end %>
+
+  <div class='course-wrapper'>
+    <div class='course-card'>
+      <%= image_tag hlpr_course_img(course), class: 'course-card-img', alt: 'image-course-card' %>
+
+      <% if user_signed_in? %>
+        <span class="label label-<%= label_changer[0] %> course-card-badge"><%= label_changer[1] %></span>
+      <% end %>
+
+      <% if user_signed_in? && !current_user.course_purchased?(course) %>
+        <span class="course-card-price"><%= course.price %> $</span>
+      <% end %>
+
+      <div class='course-card-content'>
+        <div class="text-center">
+          <h2><%= course.title %></h2>
+          <h3><%= course.country %></h3>
+          <h4><%= course.city %></h4>
+        </div>
+
+        <div class="course-card-footer">
+          <div class="mb-10">
+            <%= link_to 'View course', course_path(course), class: 'btn-go-course text-center' %>
+          </div>
+          
+          <% if user_signed_in? %>
+            <% if progress_prcnt != nil %>
+              <div class="progress-course-card progress-striped-course-card">
+                <div class="progress-bar-course-card" style="width: <%= progress_prcnt %>%; background: <%= hlpr_progress_value_changer(course) %>;">
+                  <div class="text-center">
+                    <span class="progress-course-card-value"><%= progress_prcnt %>%</span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

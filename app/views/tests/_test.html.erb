@@ -1,0 +1,44 @@
+<% hlpr_test_completed = hlpr_test_completed?(@test) %>
+
+<div class="test-background-window">
+  <div class="container">
+    <div class="test-status">
+
+      <div class="test-task-passage-string" style="background: <%= hlpr_test_completed[0] %>;">
+
+        <span><%= fa_icon 'star-half-o', class: 'mr-10' %> Test status: </span>
+        <span class="test-task-string-value" style="color: white;"><%= hlpr_test_completed[1] %> | <%= @test.max_result %>%</span>
+      </div>
+
+      <div class="test-task-passage-string">
+        <span class="clr-1"><%= fa_icon 'star-half-o', class: 'mr-10' %> Test type: </span>
+        <span class="test-task-string-value">Blitz</span>
+      </div>
+
+      <div class="test-task-passage-string">
+        <span class="clr-1"><span><%= fa_icon 'arrow-circle-up', class: 'mr-10' %> Test level: </span>
+        <span class="test-task-string-value">Easy | Level: 0</span>
+      </div>
+
+      <!-- <hr class="test-task-string-hr"> -->
+
+      <div class="test-task-passage-string">
+        <span class="clr-1"><%= fa_icon 'question-circle', class: 'mr-10' %> Questions: </span>
+        <span class="test-task-string-value"><%= @test.questions.load.size %></span>
+      </div>
+
+      <!-- <hr class="test-task-string-hr"> -->
+
+      <div class="test-task-passage-string">
+        <span class="clr-1"><%= fa_icon 'star-half-o', class: 'mr-10' %> Test passages: </span>
+        <span class="test-task-string-value"><%= @test.test_passages.count %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center" style="margin-top: 2.5vh;">
+    <% if @test.questions_and_answers? %>
+      <%= link_to 'Start test', start_test_path(@test), data: { turbo_method: :post } %>
+    <% end %>
+  </div>
+</div>

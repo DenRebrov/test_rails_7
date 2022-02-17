@@ -1,0 +1,22 @@
+<div class="title-course-wrapper">
+  <div class="container">
+    <h1 class="title-course-show"><span><%= @lesson.title.truncate(15) %> - Photos</span></h1>
+  </div>
+  <span><%= image_tag hlpr_lesson_img(@lesson), alt: 'course-title-image', class: 'course-title-image' %></span>
+</div>
+
+<ol class="breadcrumb">
+  <div class="container"><%= render_breadcrumbs separator: " / " %></div>
+</ol>
+
+<div class="container mb-50">
+  <h1 class="h1-sub-title"><%= @lesson.photos.load.size %> photo(s) in this hall</h1>
+
+  <div class="text-center mb-50" ><%== pagy_nav(@pagy) %></div>
+
+  <ul class="grid">
+    <%= render partial: 'lessons/photo', collection: @lesson_photos %>
+  </ul>
+</div>
+
+<div class="text-center mb-50" ><%== pagy_nav(@pagy) %></div>

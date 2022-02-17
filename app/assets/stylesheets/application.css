@@ -1,0 +1,243 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require font-awesome
+ *= require_self
+ */
+
+:root {
+  --color-primary: #527CA4;
+  --color-primary-mono: #7195B8;
+  --color-secondary: #A4527C;
+  --color-tertiary: #7CA452;
+  --color-tertiary-mono: #95B871;
+
+  --font-primary: font-family: 'Marmelad', sans-serif;
+
+}
+
+html,
+body {
+  font-family: 'Neucha', cursive;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: whitesmoke;
+}
+
+
+area {
+  outline-color:red;
+}
+
+
+h1 {
+  font-family: 'Marmelad', sans-serif;
+  font-size: 60px;
+  font-display: swap;
+  color: var(--color-primary);
+}
+
+h2 {
+  font-family: 'Seymour One', sans-serif;
+  /*color: var(--color-primary);*/
+  /*color: var(--color-primary);*/
+}
+
+h3 {
+  /*color: var(--color-primary);*/
+}
+
+.h1-sub-title {
+  font-size: 45px;
+}
+
+
+hr { 
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid white;
+}
+
+.h1 {
+  font-size: 2em;
+}
+
+.h2 {
+  font-size: 1.5em;
+}
+
+.h3 {
+  font-size: 1.3em;
+}
+
+.h4 {
+  font-size: 1em;
+}
+
+
+.clr-1 {
+  color: var(--color-primary);
+}
+
+.clr-2 {
+  color: var(--color-secondary);
+}
+
+.clr-3 {
+  color: var(--color-tertiary);
+}
+
+
+.container,
+.container-xxl,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm {
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
+  /*overflow: hidden;*/
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.ml-50 {
+  margin-left: 50px;
+}
+
+.label {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 7px;
+  color: var(--color-white);
+  /*width: 120px;*/
+  text-align: center;
+}
+
+.label-round {
+  border-radius: 50%;
+  padding: 9px;
+}
+
+.label-default {
+  background: grey;
+}
+
+.label-info {
+  background: var(--color-primary);
+}
+
+.label-success {
+  background: var(--color-tertiary-mono);
+}
+
+.label-danger {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+
+@media (min-width: 992px) {
+
+  .col-lg {
+    flex: 1 0 0%;
+    padding: 10px;
+  }
+
+  .col-lg-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .col-lg-9 {
+    flex: 0 0 auto;
+    width: 75%;
+  }
+
+  .col-lg-8 {
+    flex: 0 0 auto;
+    width: 66.66666666%;
+  }
+
+  .col-lg-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+  }
+
+  .col-lg-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+
+  .col-lg-5 {
+    flex: 0 0 auto;
+    width: 41.66666666%;
+  }
+
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+
+  .col-lg-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+
+  .col-lg-2 {
+    flex: 0 0 auto;
+    width: 16.66666666%;
+  }
+}

@@ -1,0 +1,48 @@
+<% progress_prcnt = current_user.get_course_progress(@test.testable.course) %>
+<% prgrss_value_changer = hlpr_progress_value_changer(@test.testable.course) %>
+
+<%= render 'test' %>
+
+<ol class="breadcrumb">
+  <div class="container"><%= render_breadcrumbs separator: " / " %></div>
+</ol>
+
+<div class="container">
+  <div class="text-center">
+    <h1 class="h1-sub-title"><%= @test.testable.title %>: Semi test</h1>
+  </div>
+
+  <div style="margin-bottom: 140px;">
+    <% if @test.testable %>
+      <%= link_to test_path(@test.testable.last_lesson.test), class: "lesson-btn-left" do %>
+        <span class="lesson-btn-icon-left"><%= fa_icon 'hand-o-left' %></span>
+        <span class="pull-right"><%= @test.testable.title.truncate(15) %>: Test</span>
+      <% end %>
+    <% end %>
+
+    <% if @test.testable.next_topic && current_user.topic_open?(@test.testable.next_topic) %>
+      <%= link_to topic_path(@test.testable.next_topic), class: "lesson-btn-right" do %>
+        <span class="lesson-btn-icon-right"><%= fa_icon 'hand-o-right' %></span>
+        <span class="pull-left"><%= @test.testable.next_topic.title.truncate(20) %></span>
+      <% end %>
+    <% elsif current_user.main_test_open?(@test.testable.course) %>
+      <%= link_to main_test_path(@test.testable.course.test), class: "lesson-btn-right" do %>
+        <span class="lesson-btn-icon-right"><%= fa_icon 'hand-o-right' %></span>
+        <span class="pull-left"><%= @test.testable.course.title.truncate(15) %>: Main test</span>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+
+<div class="container mb-50">
+  <div class="progress-course-topic-lesson progress-striped-course-topic-lesson">
+    <div class="progress-bar-course-topic-lesson" style="width: <%= progress_prcnt %>%; background: <%= prgrss_value_changer %>">
+      <div class="pull-right">
+        <span class="progress-course-topic-lesson-value" style="background: <%= prgrss_value_changer %>"><%= progress_prcnt %>%</span>
+      </div>
+    </div>
+  </div>
+</div>

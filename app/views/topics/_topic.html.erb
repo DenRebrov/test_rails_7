@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+  <% topic_status = hlpr_topic_status(topic) %>
+  <% topic_id = params[:controller] == 'topics' ? params[:id].to_i : nil %>
+<% end %>
+
+<%= link_to topic_path(topic), style: "text-decoration: none;" do %>
+  <div class="<%= hlpr_topic_color_changer(topic_id, topic.id) %>" id="topic_button_<%= topic.id %>">
+
+    <div class="course-show-topic-plan-btn-title"><%= topic.title %></div>
+    <hr style="border-top: 1px solid lightgrey;">
+    <div class="row">
+      <div class="col-lg-6">
+        <span class="topic-button-status">Status:</span>
+      </div>
+      <div class="col-lg-6">
+        <% if user_signed_in? %>
+          <span class="label label-<%= topic_status[0] %> %> topic-button-status-value"><%= topic_status[1] %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,57 @@
+.btn-go-course {
+  padding: 8px 0;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  transition: all 0.2s;
+  display: inline-block;
+  width: 94%;
+  font-size: 24px;
+  font-family: 'Seymour One', sans-serif;
+  
+	&:hover {
+	  border-radius: 0px;
+	  color: var(--color-white);
+	  background-color: var(--color-tertiary);
+	  animation: animatedBackground 5s linear infinite alternate;
+	}
+}
+
+@keyframes animatedBackground {
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: 100% 0;
+	}
+}
+
+
+.btn-nav {
+	line-height: 8px;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-right: 5px;
+	width: 120px;
+	text-decoration: none;
+	color: white;
+	border: 1px solid white;
+}
+
+.btn-login {
+	background: #aaa;
+}
+
+.btn-signup {
+	background: var(--color-primary);
+}
+
+.btn-logout {
+	background: var(--color-secondary);
+}
+
+.btn-user-profile {
+	width: 240px;
+}

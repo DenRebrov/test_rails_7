@@ -1,0 +1,182 @@
+.lesson-background-video {
+	width: 100%;
+	height: 40vh;
+	background-color: #111;
+}
+
+.lesson-video {
+  width: 100%;
+  height: 40vh;
+}
+
+.lesson-info-box {
+  background: white;
+  border: 1px solid #5BC0DE; 
+  border-radius: 25px; 
+  padding: 15px; 
+  margin-bottom: 20px; 
+  color: steelblue;
+}
+
+.lesson-task {
+	position: relative;
+  width: 60%;
+  margin: auto;
+  height: 50vh;
+	background: whitesmoke;
+	border-radius: 15px 15px 15px 15px;
+}
+
+.lesson-title-plan-link {
+  color: var(--color-primary);
+  text-decoration: underline; 
+  cursor: pointer;
+  position: relative;
+  float: left;
+}
+
+.lesson-title-plan-link:hover {
+  color: var(--color-secondary);
+}
+
+.lesson-photo-gallery-section {
+  background: var(--color-primary);
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+
+.lesson-btn-left {
+  float: left;
+  width: 30%;
+  height: 65px;
+  line-height: 65px;
+  background: white;
+  font-weight: bold;
+  /*font-size: 1.2em;*/
+  padding-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 85px 155px 15px 85px;
+  text-decoration: none;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+
+}
+
+.lesson-btn-icon-left {
+  font-size: 3em;
+  line-height: 70px;
+  padding-left: 10px;
+}
+
+.lesson-btn-icon-right {
+  font-size: 3em;
+  line-height: 70px;
+  padding-right: 10px;
+  float: right;
+}
+
+.lesson-btn-right {
+  float: right;
+  width: 30%;
+  height: 65px;
+  line-height: 65px;
+  background: white;
+  font-weight: bold;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  border-radius: 155px 85px 85px 15px;
+  text-decoration: none;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.lesson-btn-right:hover, .lesson-btn-left:hover {
+  color: white;
+  background: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+}
+
+
+.lesson-plan-button {
+  background: var(--color-primary);
+  border: 1px solid lightgrey;
+  height: 50px;
+  line-height: 48px;
+  margin: 1px;
+  border-radius: 5px;
+  color: white;
+}
+
+.lesson-plan-button-ok {
+  background: var(--color-tertiary);
+  border: 1px solid var(--color-tertiary);
+  height: 50px;
+  line-height: 48px;
+  margin: 1px;
+  border-radius: 5px;
+  color: white;
+}
+
+.lesson-plan-button:hover {
+  background: var(--color-tertiary);
+  border: 1px solid var(--color-tertiary);
+  color: white;
+}
+
+.lesson-plan-buttons-column {
+  position: absolute; 
+  top: 0; 
+  right: 0;
+  overflow: auto;
+  height: 500px;
+  width: 300px;
+  margin-right: 50px;
+
+}
+
+
+
+
+
+
+/*====================================*/
+/* SMALL DESKTOP */
+/*====================================*/
+
+@media all and (min-width: 1200px) and (max-width: 1599px) {
+
+  .lesson-plan-buttons-column {
+    width: 22%;
+    opacity: 0.8;
+  }
+
+
+}
+
+
+/*====================================*/
+/* TABLET */
+/*====================================*/
+
+@media all and (min-width: 1000px) and (max-width: 1199px) {
+
+  .lesson-plan-buttons-column {
+    position: static;
+    overflow: visible;
+    width: 25%;
+  }
+
+}
+
+
+
+
+@media all and (max-width: 999px) {
+
+  .lesson-btn-left, .lesson-btn-right {
+    width: 50%;
+    padding: 10px;
+  }
+
+
+}
